@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lacy Foltz • Mortgage Calculator</title>
+  <style>
+    :root{
+      --primary:#7FFF00; /* chartreuse */
+      --text:#0c0c0c;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --cardBorder:#e5e7eb;
+      --bg:#fafafa;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
+    .wrap{max-width:860px;margin:32px auto;padding:16px}
+    .card{background:var(--card);border:1px solid var(--cardBorder);border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,.06);overflow:hidden}
+    .brand{display:flex;align-items:center;gap:16px;padding:20px 20px 0 20px}
+    .brand h1{margin:0;font-size:28px;font-weight:800;letter-spacing:.2px}
+    .brand h1 span{color:var(--primary)}
+    .contact{padding:8px 20px 20px 20px;color:var(--muted);font-size:14px}
+    .contact strong{color:var(--text)}
+    .grid{display:grid;grid-template-columns:1fr;gap:14px;padding:20px}
+    @media(min-width:800px){.grid{grid-template-columns:1.2fr .8fr}}
+    .section{padding:16px;border:1px solid var(--cardBorder);border-radius:12px;background:#fff}
+    label{font-weight:600;display:block;margin:0 0 6px}
+    input,select{width:100%;padding:12px;border:1px solid var(--cardBorder);border-radius:10px;background:#fff}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .btn{width:100%;padding:14px 16px;border-radius:12px;border:0;background:var(--primary);color:#053400;font-weight:800;font-size:16px;cursor:pointer}
+    .results{padding:16px;border:1px dashed var(--cardBorder);border-radius:12px;background:#fbfbfb}
+    .breakdown li{margin:6px 0}
+    .muted{color:var(--muted);font-size:14px}
+    .badge{display:inline-block;padding:4px 10px;border-radius:999px;background:#ecfdf5;border:1px solid #bbf7d0;font-size:12px}
+    .media{display:flex;align-items:center;gap:12px}
+    .logo{height:48px}
+    .headshot{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--cardBorder)}
+    .footer{padding:14px 20px 20px 20px;font-size:12px;color:var(--muted)}
+    .right-col .section{position:sticky;top:16px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="brand">
+        <!-- Replace headshot.png and logo.png with your files in the repo -->
+        <img src="headshot.png" alt="Lacy Foltz headshot placeholder" class="headshot" />
+        <div>
+          <h1><span>Mortgage Calculator</span> • Lacy Foltz</h1>
+          <div class="media">
+            <img src="logo.png" class="logo" alt="Fairway Home Mortgage" />
+            <span class="badge">Fairway Home Mortgage</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact">
+        <strong>Lacy Foltz</strong> • Mortgage Loan Officer • NMLS #797560<br/>
+        <strong>Call/Text:</strong> 785-338-2675 • <strong>Email:</strong> lacy.foltz@fairwaymc.com • <strong>IG:</strong> @lacylendskc
+      </div>
+
+      <div class="grid">
+        <!-- Left: Inputs -->
+        <div class="left-col">
+          <div class="section">
+            <label>Property Address</label>
+            <input id="address" placeholder="123 Main St, City, ST"/>
+            <p class="muted" style="margin-top:8px">Address helps determine county for taxes (manual estimate used if live lookup isn’t available).</p>
+          </div>
+
+          <div class="section">
+            <div class="row">
+              <div>
+                <label>Purchase Price ($)</label>
+                <input id="price" type="number" min="0" placeholder="300000" />
+              </div>
+              <div>
+                <label>Interest Rate (%)</label>
+                <input id="rate" type="number" step="0.01" min="0" placeholder="6.5" />
+              </div>
+            </div>
+            <div class="row" style="margin-top:12px">
+              <div>
+                <label>Down Payment ($)</label>
+                <input id="downDollar" type="number" min="0" placeholder="60000" />
+              </div>
+              <div>
+                <label>Down Payment (%)</label>
+                <input id="downPct" type="number" min="0" max="100" step="0.1" placeholder="20" />
+              </div>
+            </div>
+            <div class="row" style="margin-top:12px">
+              <div>
+                <label>Loan Term</label>
+                <select id="term">
+                  <option value="30">30 years</option>
+                  <option value="20">20 years</option>
+                  <option value="15">15 years</option>
+                </select>
+              </div>
+              <div>
+                <label>Program</label>
+                <select id="program">
+                  <option>Conventional</option>
+                  <option>FHA</option>
+                  <option>VA</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="row">
+              <div>
+                <label>Property Tax (annual $)</label>
+                <input id="annualTax" type="number" min="0" placeholder="auto" />
+              </div>
+              <div>
+                <label>Homeowners Insurance (annual $)</label>
+                <input id="annualIns" type="number" min="0" placeholder="auto" />
+              </div>
+            </div>
+            <p class="muted" style="margin-top:8px">These are auto-estimated and editable. Update assumptions in the code’s <em>CONFIG</em> section.</p>
+            <button class="btn" id="calcBtn" style="margin-top:12px">Calculate Payment</button>
+          </div>
+        </div>
+
+        <!-- Right: Results -->
+        <div class="right-col">
+          <div class="section">
+            <h3 style="margin:0 0 8px;color:var(--primary)">Monthly Payment Breakdown</h3>
+            <div id="results" class="results" style="display:none">
+              <ul class="breakdown" id="breakdown"></ul>
+              <p id="summary" class="muted" style="margin-top:8px"></p>
+            </div>
+            <p id="hint" class="muted">Enter details on the left, then click <strong>Calculate</strong> to see PITI.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        Estimates only; actual taxes/insurance/MI may vary. This tool is for educational purposes.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =============================
+    // CONFIG – easy future edits 🎯
+    // =============================
+    const DEFAULT_TAX_RATE = 0.0125; // 1.25% fallback if no county lookup
+
+    // County-level average effective tax rates (editable). Keys are "COUNTY STATE".
+    const COUNTY_TAX_RATES = {
+      "JOHNSON KS": 0.0117,
+      "WYANDOTTE KS": 0.0154,
+      "DOUGLAS KS": 0.0125,
+      "SHAWNEE KS": 0.0148,
+      "CLAY KS": 0.0137,
+      "JACKSON MO": 0.0119,
+      "CLAY MO": 0.0115,
+      "CASS MO": 0.0091,
+      // Add more counties as needed
+    };
+
+    // Insurance tiers by purchase price (annual dollars)
+    const INSURANCE_TIERS = [
+      { max: 149999, annual: 140*12 },
+      { max: 175000, annual: 150*12 },
+      { max: 299000, annual: 170*12 },
+      { max: 350000, annual: 180*12 },
+      { max: 400000, annual: 190*12 },
+      { max: 450000, annual: 200*12 },
+      { max: 650000, annual: 225*12 },
+      { max: 850000, annual: 250*12 },
+      { max: 1000000, annual: 300*12 },
+      { max: Infinity, annual: 400*12 }
+    ];
+
+    // MI & funding-fee assumptions
+    const FHA_MIP_ANNUAL = 0.0055;  // 0.55% annual
+    const FHA_UPFRONT = 0.0175;     // 1.75% financed
+    const VA_FUNDING_FEE = 0.033;   // 3.3% financed
+    const CONV_PMI_ANNUAL = 0.003;  // 0.30% annual when <20% down
+
+    // =============================
+    // Helpers
+    // =============================
+    const $ = id => document.getElementById(id);
+    const fmt = n => n.toLocaleString(undefined,{maximumFractionDigits:0});
+    const fmt2 = n => n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+
+    function monthlyPI(principal, annualRate, years){
+      const r = (annualRate/100)/12;
+      const n = years*12;
+      if(r === 0) return principal / n;
+      const factor = Math.pow(1+r, n);
+      return principal * (r * factor) / (factor - 1);
+    }
+    function estimateInsuranceAnnual(price){
+      for(const t of INSURANCE_TIERS){ if(price <= t.max) return t.annual; }
+      return INSURANCE_TIERS[INSURANCE_TIERS.length-1].annual;
+    }
+
+    // Sync down payment $ and %
+    $("price").addEventListener("input", ()=>{
+      const p = +$("price").value || 0;
+      if(p>0){
+        if($("downPct").value){ $("downDollar").value = Math.round(p*(+$("downPct").value/100)); }
+        $("annualIns").value = Math.round(estimateInsuranceAnnual(p));
+        // Default annual tax from fallback rate; swap with county-specific if you wire a lookup
+        $("annualTax").value = Math.round(p * DEFAULT_TAX_RATE);
+      }
+    });
+    $("downDollar").addEventListener("input", ()=>{
+      const p = +$("price").value || 0; const d = +$("downDollar").value || 0;
+      $("downPct").value = p>0 ? ((d/p)*100).toFixed(1) : "";
+    });
+    $("downPct").addEventListener("input", ()=>{
+      const p = +$("price").value || 0; const pct = +$("downPct").value || 0;
+      $("downDollar").value = p>0 ? Math.round(p*pct/100) : "";
+    });
+
+    // Calculate
+    $("calcBtn").addEventListener("click", ()=>{
+      const price = +$("price").value || 0;
+      const rate = +$("rate").value || 0;
+      const term = +$("term").value || 30;
+      const program = $("program").value;
+      const dpDollar = +$("downDollar").value || 0;
+      const annualTax = +$("annualTax").value || 0;
+      const annualIns = +$("annualIns").value || 0;
+      if(price<=0 || term<=0 || rate<0){ alert("Please enter a price, term, and interest rate."); return; }
+
+      const baseLoan = Math.max(price - dpDollar, 0);
+      let loan = baseLoan;
+      let monthlyMI = 0;
+      let note = "";
+
+      if(program === "FHA"){ loan = baseLoan*(1+FHA_UPFRONT); monthlyMI = loan*FHA_MIP_ANNUAL/12; note = `(incl. ${ (FHA_UPFRONT*100).toFixed(2) }% upfront MIP)`; }
+      else if(program === "VA"){ loan = baseLoan*(1+VA_FUNDING_FEE); monthlyMI = 0; note = `(incl. ${ (VA_FUNDING_FEE*100).toFixed(1) }% funding fee)`; }
+      else { // Conventional
+        if(dpDollar < 0.20*price){ monthlyMI = baseLoan*CONV_PMI_ANNUAL/12; }
+      }
+
+      const pi = monthlyPI(loan, rate, term);
+      const tax = annualTax/12; const ins = annualIns/12; const total = pi + tax + ins + monthlyMI;
+
+      const items = [
+        [`Principal & Interest`, `$${fmt2(pi)}`],
+        [`Property Tax`, `$${fmt2(tax)}`],
+        [`Homeowners Insurance`, `$${fmt2(ins)}`],
+        [`Mortgage Insurance`, `$${fmt2(monthlyMI)}`]
+      ];
+      $("breakdown").innerHTML = items.map(([k,v])=>`<li><strong>${k}:</strong> ${v}</li>`).join("");
+      $("summary").textContent = `Total PITI: $${fmt2(total)} / month • ${term}-yr ${program} • Loan $${fmt(loan)} at ${rate}% with $${fmt(dpDollar)} down ${note}`;
+      $("hint").style.display = "none"; $("results").style.display = "block";
+    });
+  </script>
+</body>
+</html>
