@@ -113,11 +113,9 @@
             <div>
               <label>Interest Rate (%)</label>
               <div style="display:flex;gap:8px;align-items:center">
-                <input id="rate" type="number" step="0.001" min="0" placeholder="Preloaded from today's market (editable)" style="flex:1" />
+                <input id="rate" type="number" step="0.001" min="0" placeholder="Enter interest rate" style="flex:1" />
               </div>
-              <div class="muted small" style="margin-top:6px">
-                This rate preloads from today's market average and can be edited.
-              </div>
+              
             </div>
           </div>
           <div class="row" style="margin-top:12px">
@@ -366,31 +364,10 @@
       }
 
       // Update market rate when program changes
-      setRateFromMarket();
+      
     });
 
-    // === Market rate preload from MND proxy (no UI button) ===
-    async function setRateFromMarket(){
-      const term = +$("term").value || 30;
-      const program = $("program").value || "Conventional";
-      const key = mndProductKey(program, term);
-
-      if(!MND_PROXY_URL){
-        // No proxy configured; leave blank by request
-        return;
-      }
-      try{
-        const res = await fetch(`${MND_PROXY_URL}?product=${encodeURIComponent(key)}`, { cache: "no-store" });
-        if(res.ok){
-          const data = await res.json();
-          if(data && typeof data.baseRate === 'number'){
-            $("rate").value = (data.baseRate + 0.125).toFixed(3);
-          }
-        }
-      }catch(e){ /* silently ignore per request */ }
-    }
-    document.addEventListener('DOMContentLoaded', setRateFromMarket);
-    $("term").addEventListener('change', setRateFromMarket);
+    // (Auto-rate preload removed by request; leaving rate blank by default) 
 
     // Calculate
     $("calcBtn").addEventListener("click", ()=>{
