@@ -6,33 +6,32 @@
   <title>Lacy Foltz • Mortgage Calculator</title>
   <style>
     :root{
-      --primary:#64D53A; /* darker chartreuse */
+      --primary:#64D53A; /* darker, greener chartreuse */
       --text:#0b1020;
       --muted:#5b6475;
       --card:#ffffff;
       --cardBorder:#e6e8ee;
       --bg:#f5f7fb;
       --accent:#111827;
-      --hero:#e6f7d4; /* less yellow, slightly darker chartreuse banner */ /* light chartreuse banner */
+      --hero:#e6f7d4; /* light chartreuse banner */
     }
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
 
     /* Header / Hero */
-    .wrap{max-width:1100px;margin:0 auto;padding:28px 16px}
+    .wrap{width:min(96vw,1280px);margin:0 auto;padding:28px 16px}
     .hero{position:relative;background:var(--hero);border-bottom:1px solid var(--cardBorder)}
-    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:center}
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:22px;align-items:center}
     .brand{display:flex;align-items:center;gap:18px}
     /* Headshot: larger, vertical rectangle, soft corners, fade at bottom */
-    .headshot-wrap{width:170px;height:230px;border-radius:16px;overflow:hidden;position:relative;border:2px solid var(--cardBorder);background:#fff;box-shadow:0 6px 14px rgba(0,0,0,.05)}
+    .headshot-wrap{width:220px;height:300px;border-radius:16px;overflow:hidden;position:relative;border:2px solid var(--cardBorder);background:#fff;box-shadow:0 6px 14px rgba(0,0,0,.05)}
     .headshot{width:100%;height:100%;object-fit:cover;display:block}
     .headshot-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:28%;background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);pointer-events:none}
-    @media(min-width:900px){.headshot-wrap{width:200px;height:270px}}
-    @media(min-width:1200px){.headshot-wrap{width:220px;height:300px}}
+    @media(min-width:900px){.headshot-wrap{width:240px;height:330px}}
 
-    h1{margin:6px 0 4px;font-size:38px;line-height:1.1;letter-spacing:.2px}
+    h1{margin:6px 0 4px;font-size:40px;line-height:1.1;letter-spacing:.2px}
     h1 span{color:#063d0a;background:linear-gradient(90deg,#056015,#2f8f1f);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .subhead{font-size:20px;font-weight:800;color:#0a3a0a}
+    .subhead{font-size:22px;font-weight:800;color:#0a3a0a}
 
     .contact{margin-top:10px;color:var(--muted);font-size:14px}
     .contact strong{color:var(--accent)}
@@ -41,15 +40,14 @@
     /* Cards & Layout */
     .card{background:var(--card);border:1px solid var(--cardBorder);border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden}
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(min-width:1000px){.grid{grid-template-columns:1.2fr .8fr}}
     .section{padding:16px;border:1px solid var(--cardBorder);border-radius:12px;background:#fff}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:720px){.row{grid-template-columns:1fr}}
     label{font-weight:700;display:block;margin:0 0 6px}
     input,select{width:100%;padding:12px;border:1px solid var(--cardBorder);border-radius:10px;background:#fff}
     .btn{width:100%;padding:14px 16px;border-radius:12px;border:0;background:var(--primary);color:#032d07;font-weight:900;font-size:16px;cursor:pointer}
-    .btn-ghost{padding:10px 12px;border-radius:10px;border:1px solid var(--cardBorder);background:#fff;font-weight:700;cursor:pointer}
 
-    /* Big PITI (kept in hero) */
+    /* Big PITI */
     .piti-wrap{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
     .piti-total{font-size:46px;font-weight:900;line-height:1;color:#0a3a0a;letter-spacing:.2px}
     .piti-total sup{font-size:18px;color:var(--muted);margin-left:6px}
@@ -70,20 +68,18 @@
   <!-- HERO -->
   <div class="hero">
     <div class="wrap hero-grid">
-      <div>
-        <div class="brand">
-          <div class="headshot-wrap"><img src="headshot.png" alt="Lacy Foltz headshot" class="headshot" /></div>
-          <div>
-            <h1><span>Mortgage Calculator</span></h1>
-            <div class="subhead">Lacy Foltz</div>
-            <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
-              <img src="logo.png" class="logo" alt="Fairway Home Mortgage" />
-              <span class="tag">Fairway Home Mortgage</span>
-            </div>
-            <div class="contact">
-              <strong>Lacy Foltz</strong> • Mortgage Loan Officer • NMLS #797560<br/>
-              <strong>Call/Text:</strong> 785-338-2675 • <strong>Email:</strong> lacy.foltz@fairwaymc.com • <strong>IG:</strong> @lacylendskc
-            </div>
+      <div class="brand">
+        <div class="headshot-wrap"><img src="headshot.png" alt="Lacy Foltz headshot" class="headshot" /></div>
+        <div>
+          <h1><span>Mortgage Calculator</span></h1>
+          <div class="subhead">Lacy Foltz</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+            <img src="logo.png" class="logo" alt="Fairway Home Mortgage" />
+            <span class="tag">Fairway Home Mortgage</span>
+          </div>
+          <div class="contact">
+            <strong>Lacy Foltz</strong> • Mortgage Loan Officer • NMLS #797560<br/>
+            <strong>Call/Text:</strong> 785-338-2675 • <strong>Email:</strong> lacy.foltz@fairwaymc.com • <strong>IG:</strong> @lacylendskc
           </div>
         </div>
       </div>
@@ -100,137 +96,130 @@
 
   <div class="wrap" style="margin-top:18px">
     <div class="grid">
-      <!-- LEFT: Inputs + RESULTS moved to bottom under Calculate -->
-      <div class="left-col">
-        <div class="card">
-          <div class="section">
-            <label>Property Address</label>
-            <input id="address" placeholder="123 Main St, City, ST"/>
-            <p class="muted" style="margin-top:8px">Address helps determine county for taxes (manual estimate used if live lookup isn’t available).</p>
-          </div>
+      <!-- SINGLE COLUMN: Inputs + Results + Legal -->
+      <div class="card">
+        <div class="section">
+          <label>Property Address</label>
+          <input id="address" placeholder="123 Main St, City, ST"/>
+          <p class="muted" style="margin-top:8px">Address helps determine county for taxes (manual estimate used if live lookup isn’t available).</p>
+        </div>
 
-          <div class="section">
-            <div class="row">
-              <div>
-                <label>Purchase Price ($)</label>
-                <input id="price" type="number" min="0" placeholder="300000" />
-              </div>
-              <div>
-                <label>Interest Rate (%)</label>
-                <div style="display:flex;gap:8px;align-items:center">
-                  <input id="rate" type="number" step="0.001" min="0" placeholder="Enter or use Auto-fill" style="flex:1" />
-                  <button class="btn-ghost" id="btnAutoRate" title="Auto-fill from today's market average">Auto-fill</button>
-                </div>
-                <div class="muted small" style="margin-top:6px">
-                  You can type any rate, or click <em>Auto-fill</em> to use a market-based average.
-                </div>
-              </div>
+        <div class="section">
+          <div class="row">
+            <div>
+              <label>Purchase Price ($)</label>
+              <input id="price" type="number" min="0" placeholder="300000" />
             </div>
-            <div class="row" style="margin-top:12px">
-              <div>
-                <label>Down Payment ($)</label>
-                <input id="downDollar" type="number" min="0" placeholder="60000" />
+            <div>
+              <label>Interest Rate (%)</label>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input id="rate" type="number" step="0.001" min="0" placeholder="Preloaded from today's market (editable)" style="flex:1" />
               </div>
-              <div>
-                <label>Down Payment (%)</label>
-                <input id="downPct" type="number" min="0" max="100" step="0.1" placeholder="20" />
-              </div>
-            </div>
-            <div class="row" style="margin-top:12px">
-              <div>
-                <label>Loan Term</label>
-                <select id="term">
-                  <option value="30">30 years</option>
-                  <option value="20">20 years</option>
-                  <option value="15">15 years</option>
-                </select>
-              </div>
-              <div>
-                <label>Program</label>
-                <select id="program">
-                  <option value="">Select...</option>
-                  <option>Conventional</option>
-                  <option>FHA</option>
-                  <option>VA</option>
-                </select>
+              <div class="muted small" style="margin-top:6px">
+                This rate preloads from today's market average and can be edited.
               </div>
             </div>
           </div>
-
-          <div class="section">
-            <div class="row">
-              <div>
-                <label>Property Tax (annual $)</label>
-                <input id="annualTax" type="number" min="0" placeholder="auto" />
-              </div>
-              <div>
-                <label>Homeowners Insurance (annual $)</label>
-                <input id="annualIns" type="number" min="0" placeholder="auto" />
-              </div>
+          <div class="row" style="margin-top:12px">
+            <div>
+              <label>Down Payment ($)</label>
+              <input id="downDollar" type="number" min="0" placeholder="60000" />
             </div>
-            <p class="muted" style="margin-top:8px">These are auto-estimated and editable. Update assumptions in the <em>CONFIG</em> section.</p>
-          </div>
-
-          <!-- PMI / MIP Controls (show only after program chosen) -->
-          <div class="section" id="pmiSection" style="display:none">
-            <details id="pmiDetails">
-              <summary>Adjust PMI / MIP (optional)</summary>
-              <div id="pmiFields" style="margin-top:10px"></div>
-              <p id="pmiDisclaimer" class="small muted" style="margin-top:8px; display:none;">
-                <strong>Important:</strong> Your mortgage insurance (PMI/MIP) is determined by multiple borrower‑specific factors such as
-                <em>credit score</em>, <em>debt‑to‑income ratio</em>, <em>loan‑to‑value</em>, <em>property type/occupancy</em>, and other risk‑based criteria that this
-                calculator does not collect. Estimates can vary significantly. Please contact <strong>Lacy Foltz</strong> directly for a personalized, more accurate quote.
-              </p>
-            </details>
-          </div>
-
-          <div class="section">
-            <button class="btn" id="calcBtn">Calculate Payment</button>
-          </div>
-
-          <!-- RESULTS MOVED HERE (bottom under Calculate) -->
-          <div class="section" id="resultsCard">
-            <div class="piti-wrap" id="pitiBottom" style="display:none;margin-bottom:12px">
-              <div class="muted">Estimated Monthly Payment</div>
-              <div class="piti-total"><span id="pitiTotalBottom">$0</span><sup>*</sup></div>
-              <div class="muted small">PITI includes Principal & Interest, Property Taxes, Homeowners Insurance, and Mortgage Insurance (if applicable).</div>
+            <div>
+              <label>Down Payment (%)</label>
+              <input id="downPct" type="number" min="0" max="100" step="0.1" placeholder="20" />
             </div>
-            <h3 style="margin:0 0 8px;color:var(--primary)">Monthly Payment Breakdown</h3>
-            <div id="results" class="results" style="display:none">
-              <ul class="breakdown" id="breakdown"></ul>
-              <p id="summary" class="muted" style="margin-top:8px"></p>
+          </div>
+          <div class="row" style="margin-top:12px">
+            <div>
+              <label>Loan Term</label>
+              <select id="term">
+                <option value="30">30 years</option>
+                <option value="20">20 years</option>
+                <option value="15">15 years</option>
+              </select>
             </div>
-            <p id="hint" class="muted">Enter details above, then click <strong>Calculate</strong> to see PITI.</p>
-            <div class="muted small" style="margin-top:12px">
-              <sup>*</sup> Estimate only. See disclaimer in the right column.
+            <div>
+              <label>Program</label>
+              <select id="program">
+                <option value="">Select...</option>
+                <option>Conventional</option>
+                <option>FHA</option>
+                <option>VA</option>
+              </select>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- RIGHT: Legal/Disclosures only -->
-      <div class="right-col">
-        <div class="card">
-          <div class="section">
-            <h4 style="margin:4px 0">Disclosures & Legal</h4>
-            <p class="small muted" id="disclaimerText">
-              <sup>*</sup> This calculator provides <strong>estimates for educational purposes only</strong>. Results are based on user-provided information and
-              default assumptions for property taxes, homeowners insurance, mortgage insurance, and interest rate. <strong>Actual payments, taxes, insurance, and
-              loan terms may vary</strong> and are subject to change without notice. This is <strong>not</strong> a loan approval, commitment to lend, or rate lock.
-              All loans are subject to credit approval, verification of information, and acceptable collateral.
-            </p>
-            <p class="small muted">
-              We are an <strong>Equal Housing Lender</strong> and conduct business in accordance with the <strong>Federal Fair Housing Act</strong> and the
-              <strong>Equal Credit Opportunity Act</strong>. We do not discriminate on the basis of race, color, religion, national origin, sex, marital status,
-              age (provided the applicant has the capacity to contract), disability, familial status, the fact that all or part of an applicant’s income is derived
-              from any public assistance program, or the fact that the applicant has in good faith exercised any right under the Consumer Credit Protection Act.
-            </p>
-            <p class="small muted">
-              Not a solicitation to extend credit or a commitment to lend. Programs, rates, terms and conditions are subject to change without notice and may vary by
-              state. This calculator does not include HOA dues, flood insurance, or other costs that may apply. For personalized quotes, please contact
-              <strong>Lacy Foltz (NMLS #797560)</strong> at 785-338-2675 or lacy.foltz@fairwaymc.com. Fairway Independent Mortgage Corporation. Equal Housing Lender.
-            </p>
+        <div class="section">
+          <div class="row">
+            <div>
+              <label>Property Tax (annual $)</label>
+              <input id="annualTax" type="number" min="0" placeholder="auto" />
+            </div>
+            <div>
+              <label>Homeowners Insurance (annual $)</label>
+              <input id="annualIns" type="number" min="0" placeholder="auto" />
+            </div>
           </div>
+          <p class="muted" style="margin-top:8px">These are auto-estimated and editable. Update assumptions in the <em>CONFIG</em> section.</p>
+        </div>
+
+        <!-- PMI / MIP Controls (show only after program chosen) -->
+        <div class="section" id="pmiSection" style="display:none">
+          <details id="pmiDetails">
+            <summary>Adjust PMI / MIP (optional)</summary>
+            <div id="pmiFields" style="margin-top:10px"></div>
+            <p id="pmiDisclaimer" class="small muted" style="margin-top:8px; display:none;">
+              <strong>Important:</strong> Your mortgage insurance (PMI/MIP) is determined by multiple borrower‑specific factors such as
+              <em>credit score</em>, <em>debt‑to‑income ratio</em>, <em>loan‑to‑value</em>, <em>property type/occupancy</em>, and other risk‑based criteria that this
+              calculator does not collect. Estimates can vary significantly. Please contact <strong>Lacy Foltz</strong> directly for a personalized, more accurate quote.
+            </p>
+          </details>
+        </div>
+
+        <div class="section">
+          <button class="btn" id="calcBtn">Calculate Payment</button>
+        </div>
+
+        <!-- RESULTS UNDER CALCULATE -->
+        <div class="section" id="resultsCard">
+          <div class="piti-wrap" id="pitiBottom" style="display:none;margin-bottom:12px">
+            <div class="muted">Estimated Monthly Payment</div>
+            <div class="piti-total"><span id="pitiTotalBottom">$0</span><sup>*</sup></div>
+            <div class="muted small">PITI includes Principal & Interest, Property Taxes, Homeowners Insurance, and Mortgage Insurance (if applicable).</div>
+          </div>
+          <h3 style="margin:0 0 8px;color:var(--primary)">Monthly Payment Breakdown</h3>
+          <div id="results" class="results" style="display:none">
+            <ul class="breakdown" id="breakdown"></ul>
+            <p id="summary" class="muted" style="margin-top:8px"></p>
+          </div>
+          <p id="hint" class="muted">Enter details above, then click <strong>Calculate</strong> to see PITI.</p>
+          <div class="muted small" style="margin-top:12px">
+            <sup>*</sup> Estimate only. See disclosures below.
+          </div>
+        </div>
+
+        <!-- DISCLOSURES & LEGAL AT THE VERY BOTTOM -->
+        <div class="section" style="margin-top:16px">
+          <h4 style="margin:4px 0">Disclosures & Legal</h4>
+          <p class="small muted" id="disclaimerText">
+            <sup>*</sup> This calculator provides <strong>estimates for educational purposes only</strong>. Results are based on user-provided information and
+            default assumptions for property taxes, homeowners insurance, mortgage insurance, and interest rate. <strong>Actual payments, taxes, insurance, and
+            loan terms may vary</strong> and are subject to change without notice. This is <strong>not</strong> a loan approval, commitment to lend, or rate lock.
+            All loans are subject to credit approval, verification of information, and acceptable collateral.
+          </p>
+          <p class="small muted">
+            We are an <strong>Equal Housing Lender</strong> and conduct business in accordance with the <strong>Federal Fair Housing Act</strong> and the
+            <strong>Equal Credit Opportunity Act</strong>. We do not discriminate on the basis of race, color, religion, national origin, sex, marital status,
+            age (provided the applicant has the capacity to contract), disability, familial status, the fact that all or part of an applicant’s income is derived
+            from any public assistance program, or the fact that the applicant has in good faith exercised any right under the Consumer Credit Protection Act.
+          </p>
+          <p class="small muted">
+            Not a solicitation to extend credit or a commitment to lend. Programs, rates, terms and conditions are subject to change without notice and may vary by
+            state. This calculator does not include HOA dues, flood insurance, or other costs that may apply. For personalized quotes, please contact
+            <strong>Lacy Foltz (NMLS #797560)</strong> at 785-338-2675 or lacy.foltz@fairwaymc.com. Fairway Independent Mortgage Corporation. Equal Housing Lender.
+          </p>
         </div>
       </div>
     </div>
@@ -275,11 +264,8 @@
     let CONV_PMI_ANNUAL = 0.003;  // 0.30% annual when <20% down
     const VA_FUNDING_FEE = 0.033; // 3.3% financed
 
-    // Mortgage News Daily proxy endpoint (deploy a worker and paste URL)
-    const MND_PROXY_URL = ""; // e.g., https://mnd-proxy.yourname.workers.dev
-
-    // Optional: API Ninjas for fallback auto-rate (approximate national average). Leave key blank to disable.
-    const API_NINJAS_KEY = ""; // <-- paste key to enable fallback
+    // Mortgage News Daily proxy endpoint (set to your Cloudflare Worker URL to enable preloading)
+    const MND_PROXY_URL = ""; // e.g., "https://mnd-proxy.yourname.workers.dev"
 
     // =============================
     // Helpers
@@ -378,62 +364,46 @@
       } else if(program === "VA"){
         fields.innerHTML = `<p class="small muted">VA loans have no monthly mortgage insurance. A 3.3% upfront funding fee is financed into the loan by default.</p>`;
       }
+
+      // Update market rate when program changes
+      setRateFromMarket();
     });
 
-    // Auto-rate logic: fetch from your MND proxy; fallback to API or prompt
-    async function autoFillRate(){
+    // === Market rate preload from MND proxy (no UI button) ===
+    async function setRateFromMarket(){
       const term = +$("term").value || 30;
       const program = $("program").value || "Conventional";
       const key = mndProductKey(program, term);
 
-      // 1) Try Cloudflare Worker proxy to MND
-      if(MND_PROXY_URL){
-        try{
-          const res = await fetch(`${MND_PROXY_URL}?product=${encodeURIComponent(key)}`, { cache: "no-store" });
-          if(res.ok){
-            const data = await res.json();
-            if(data && typeof data.baseRate === 'number'){
-              $("rate").value = (data.baseRate + 0.125).toFixed(3);
-              return;
-            }
-          }
-        }catch(e){ /* ignore and fall through */ }
+      if(!MND_PROXY_URL){
+        // No proxy configured; leave blank by request
+        return;
       }
-
-      // 2) Fallback: API Ninjas
-      if(API_NINJAS_KEY){
-        try{
-          const res = await fetch("https://api.api-ninjas.com/v1/mortgagerate",{headers:{"X-Api-Key":""+API_NINJAS_KEY}});
-          if(res.ok){
-            const data = await res.json();
-            const latest = Array.isArray(data) ? data[0] : null;
-            if(latest){
-              const base = term===15 && latest.frm_15 ? latest.frm_15 : latest.frm_30;
-              if(base){ $("rate").value = (base + 0.125).toFixed(3); return; }
-            }
+      try{
+        const res = await fetch(`${MND_PROXY_URL}?product=${encodeURIComponent(key)}`, { cache: "no-store" });
+        if(res.ok){
+          const data = await res.json();
+          if(data && typeof data.baseRate === 'number'){
+            $("rate").value = (data.baseRate + 0.125).toFixed(3);
           }
-        }catch(e){ /* ignore and fall through */ }
-      }
-
-      // 3) Manual prompt fallback
-      const baseStr = prompt("Enter today's market average for this program/term (%):");
-      const val = parseFloat(baseStr);
-      if(!isNaN(val)){ $("rate").value = (val + 0.125).toFixed(3); }
+        }
+      }catch(e){ /* silently ignore per request */ }
     }
-    $("btnAutoRate").addEventListener("click", autoFillRate);
+    document.addEventListener('DOMContentLoaded', setRateFromMarket);
+    $("term").addEventListener('change', setRateFromMarket);
 
     // Calculate
     $("calcBtn").addEventListener("click", ()=>{
       const price = +$("price").value || 0;
       const rate = +$("rate").value || 0;
       const term = +$("term").value || 30;
-      const program = $("program").value;
+      const program = $("program").value || "Conventional";
       const dpDollar = +$("downDollar").value || 0;
       const annualTax = +$("annualTax").value || 0;
       const annualIns = +$("annualIns").value || 0;
       const pmiOverride = document.getElementById('pmiOverride') ? +document.getElementById('pmiOverride').value : 0;
 
-      if(price<=0 || term<=0 || rate<0 || !program){ alert("Please enter a price, term, interest rate, and choose a program."); return; }
+      if(price<=0 || term<=0 || rate<=0){ alert("Please enter a purchase price and interest rate."); return; }
 
       const baseLoan = Math.max(price - dpDollar, 0);
       let loan = baseLoan;
