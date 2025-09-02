@@ -6,14 +6,14 @@
   <title>Lacy Foltz • Mortgage Calculator</title>
   <style>
     :root{
-      --primary:#7FFF00; /* chartreuse */
+      --primary:#64D53A; /* darker chartreuse */
       --text:#0b1020;
       --muted:#5b6475;
       --card:#ffffff;
       --cardBorder:#e6e8ee;
       --bg:#f5f7fb;
       --accent:#111827;
-      --hero:#f0ffd7; /* light chartreuse banner */
+      --hero:#e6f7d4; /* less yellow, slightly darker chartreuse banner */ /* light chartreuse banner */
     }
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
@@ -190,6 +190,11 @@
 
           <!-- RESULTS MOVED HERE (bottom under Calculate) -->
           <div class="section" id="resultsCard">
+            <div class="piti-wrap" id="pitiBottom" style="display:none;margin-bottom:12px">
+              <div class="muted">Estimated Monthly Payment</div>
+              <div class="piti-total"><span id="pitiTotalBottom">$0</span><sup>*</sup></div>
+              <div class="muted small">PITI includes Principal & Interest, Property Taxes, Homeowners Insurance, and Mortgage Insurance (if applicable).</div>
+            </div>
             <h3 style="margin:0 0 8px;color:var(--primary)">Monthly Payment Breakdown</h3>
             <div id="results" class="results" style="display:none">
               <ul class="breakdown" id="breakdown"></ul>
@@ -447,6 +452,9 @@
 
       // Big total (hero)
       $("pitiTotal").textContent = `$${fmt2(total)}`;
+      // Big total (bottom panel)
+      const pb = $("pitiBottom"); if(pb) pb.style.display = "block";
+      const ptb = $("pitiTotalBottom"); if(ptb) ptb.textContent = `$${fmt2(total)}`;
 
       // Breakdown
       const items = [
