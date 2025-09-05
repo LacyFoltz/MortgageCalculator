@@ -62,6 +62,18 @@
     /* Accent divider */
     .stripe{height:6px;background:linear-gradient(90deg,var(--primary),#b2ff66 40%,#c7ffd1)}
     .tag{display:inline-block;padding:4px 10px;border-radius:999px;background:#ecfdf5;border:1px solid #bbf7d0;font-size:12px}
+      /* Sidebar promos: fixed dock on wide screens */
+    .sideDock{display:none}
+    @media(min-width:1200px){
+      .sideDock{display:block;position:fixed;right:max(16px,calc((100vw - 1280px)/2));top:220px;width:320px;z-index:10}
+    }
+    .promo-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .promo{display:block;border:1px solid var(--cardBorder);border-radius:12px;overflow:hidden;background:#fff;text-decoration:none;color:inherit;transition:transform .15s ease, box-shadow .15s ease}
+    .promo:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.08)}
+    .promo img{width:100%;height:220px;object-fit:cover;display:block;object-position:center top}
+    @media(min-width:1400px){.promo img{height:260px}}
+    .promo .p-body{padding:12px}
+    .promo .p-title{font-weight:800}
   </style>
 </head>
 <body>
@@ -79,7 +91,7 @@
           </div>
           <div class="contact">
             <strong>Lacy Foltz</strong> • Mortgage Loan Officer • NMLS #797560<br/>
-            <strong>Call/Text:</strong> 785-338-2675 • <strong>Email:</strong> lacy.foltz@fairwaymc.com • <strong>IG:</strong> @lacylendskc
+            <strong>Call/Text:</strong> 785-338-2675 • <strong>Email:</strong> <a href="mailto:lacy.foltz@fairwaymc.com">lacy.foltz@fairwaymc.com</a> • <strong>IG:</strong> @lacylendskc
           </div>
         </div>
       </div>
@@ -216,9 +228,18 @@
           <p class="small muted">
             Not a solicitation to extend credit or a commitment to lend. Programs, rates, terms and conditions are subject to change without notice and may vary by
             state. This calculator does not include HOA dues, flood insurance, or other costs that may apply. For personalized quotes, please contact
-            <strong>Lacy Foltz (NMLS #797560)</strong> at 785-338-2675 or lacy.foltz@fairwaymc.com. Fairway Independent Mortgage Corporation. Equal Housing Lender.
+            <strong>Lacy Foltz (NMLS #797560)</strong> at 785-338-2675 or <a href="mailto:lacy.foltz@fairwaymc.com">lacy.foltz@fairwaymc.com</a>. Fairway Independent Mortgage Corporation. Equal Housing Lender.
           </p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="promoShell" class="sideDock">
+    <div class="card">
+      <div class="section">
+        <h3 style="margin:0 0 12px;color:var(--primary)">Explore</h3>
+        <div id="promoGrid" class="promo-grid"></div>
       </div>
     </div>
   </div>
@@ -227,6 +248,14 @@
     // =============================
     // CONFIG – easy future edits 🎯
     // =============================
+
+    // Sidebar promos (fill these in with your links/images)
+    // Example item: { title: "Read my Google Reviews", href: "https://your.link", img: "promo-google.png", desc: "500+ 5★ reviews" }
+    const PROMOS = [
+      { title: "About Lacy", href: "about-lacy.jpg", img: "about-lacy.jpg", desc: "Meet your lender" },
+      { title: "Lacy’s Bio", href: "lacy-bio.png", img: "lacy-bio.png", desc: "Background & contact info" },
+      { title: "Read My Reviews", href: "https://www.experience.com/reviews/the-rome-team-152005", desc: "See client experiences & ratings" }
+    ];
     const DEFAULT_TAX_RATE = 0.0125; // 1.25% fallback if no county lookup
 
     // County-level average effective tax rates (editable). Keys are "COUNTY STATE".
@@ -259,14 +288,34 @@
     // MI & funding-fee defaults (overridable via PMI panel)
     let FHA_MIP_ANNUAL = 0.0055;  // 0.55% annual
     const FHA_UPFRONT = 0.0175;   // 1.75% financed
-    let CONV_PMI_ANNUAL = 0.003;  // 0.30% annual when <20% down
+    let CONV_PMI_ANNUAL = 0.003;  // legacy default (0.30% annual) if no tier applies
     const VA_FUNDING_FEE = 0.033; // 3.3% financed
+
+    // Conventional PMI tiering by down payment (annual factors)
+    // 3% down → 0.27% | 5% down → 0.20% | 10% down → 0.14% | 15% down → 0.10%
+    // Applied when down payment < 20% and no explicit override is entered.
+    let CONV_PMI_ANNUAL_OVERRIDE = null; // set by the Optional "Conventional PMI (annual %)" input
 
     // Mortgage News Daily proxy endpoint (set to your Cloudflare Worker URL to enable preloading)
     const MND_PROXY_URL = ""; // e.g., "https://mnd-proxy.yourname.workers.dev"
 
     // =============================
     // Helpers
+    function renderPromos(){
+      const shell = document.getElementById('promoShell');
+      const grid = document.getElementById('promoGrid');
+      if(!shell || !grid) return;
+      if(!Array.isArray(PROMOS) || PROMOS.length===0){ shell.style.display='none'; return; }
+      grid.innerHTML = PROMOS.map(p => `
+        <a class="promo" href="${p.href||'#'}" target="_blank" rel="noopener">
+          ${p.img ? `<img src="${p.img}" alt="${(p.title||'')}">` : ''}
+          <div class="p-body">
+            <div class="p-title">${p.title||''}</div>
+            ${p.desc ? `<div class="muted small">${p.desc}</div>` : ''}
+          </div>
+        </a>
+      `).join('');
+    }
     // =============================
     const $ = id => document.getElementById(id);
     const fmt = n => n.toLocaleString(undefined,{maximumFractionDigits:0});
@@ -335,11 +384,11 @@
               <input id="convPMIInput" type="number" step="0.01" min="0" placeholder="0.30" />
             </div>
           </div>
-          <p class="small muted" style="margin-top:8px">Defaults to 0.30% annually when down payment is below 20%. You may override with a monthly dollar amount.</p>
+          <p class="small muted" style="margin-top:8px">Automatically applies tiered PMI by down payment (3%→0.27%, 5%→0.20%, 10%→0.14%, 15%→0.10%). You may override with a monthly $ amount or a custom annual %.</p>
         `;
         $("convPMIInput").addEventListener("input", ()=>{
           const v = parseFloat($("convPMIInput").value);
-          if(!isNaN(v)) CONV_PMI_ANNUAL = v/100;
+          if(!isNaN(v)) CONV_PMI_ANNUAL_OVERRIDE = v/100; else CONV_PMI_ANNUAL_OVERRIDE = null;
         });
       } else if(program === "FHA"){
         fields.innerHTML = `
@@ -390,7 +439,27 @@
       if(program === "FHA"){ loan = baseLoan*(1+0.0175); monthlyMI = (pmiOverride>0? pmiOverride : loan*FHA_MIP_ANNUAL/12); note = `(incl. 1.75% upfront MIP)`; }
       else if(program === "VA"){ loan = baseLoan*(1+0.033); monthlyMI = (pmiOverride>0? pmiOverride : 0); note = `(incl. 3.3% funding fee)`; }
       else { // Conventional
-        if(pmiOverride>0){ monthlyMI = pmiOverride; }
+        if(pmiOverride>0){
+          monthlyMI = pmiOverride;
+        } else if(dpDollar < 0.20*price){
+          const dpPct = price>0 ? (dpDollar/price)*100 : 0;
+          let annualFactor;
+          if(CONV_PMI_ANNUAL_OVERRIDE !== null){
+            annualFactor = CONV_PMI_ANNUAL_OVERRIDE; // custom annual % (as decimal)
+          } else if(dpPct < 5){
+            annualFactor = 0.0027; // 0.27% annual
+          } else if(dpPct < 10){
+            annualFactor = 0.0020; // 0.20% annual
+          } else if(dpPct < 15){
+            annualFactor = 0.0014; // 0.14% annual
+          } else if(dpPct < 20){
+            annualFactor = 0.0010; // 0.10% annual
+          } else {
+            annualFactor = 0;
+          }
+          monthlyMI = baseLoan * (annualFactor/12);
+        }
+      }
         else if(dpDollar < 0.20*price){ monthlyMI = baseLoan*CONV_PMI_ANNUAL/12; }
       }
 
@@ -414,6 +483,7 @@
       $("summary").textContent = `Total PITI: $${fmt2(total)} / month • ${term}-yr ${program} • Loan $${fmt(loan)} at ${rate}% with $${fmt(dpDollar)} down ${note}`;
       $("hint").style.display = "none"; $("results").style.display = "block";
     });
+    renderPromos();
   </script>
 </body>
 </html>
